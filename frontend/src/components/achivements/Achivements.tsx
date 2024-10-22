@@ -21,28 +21,43 @@ const Achivements = () => {
   }, []);
 
   // Handle file upload
-  const handleUpload = (file: File | null) => {
-    if (!file) {
-      console.log("No file selected");
-      return;
-    }
+  // const handleUpload = (file: File | null) => {
+  //   if (!file) {
+  //     console.log("No file selected");
+  //     return;
+  //   }
 
-    const formData = new FormData();
-    formData.append("file", file);
-    formData.append("achievement_type","birthday")
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+  //   formData.append("achievement_type","birthday")
 
-    api
-      .post("/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        // After upload, add the new image to the list
-        setImages((prev) => [...prev, res.data.image]);
-      })
-      .catch((err) => console.log(err));
-  };
+  //   api
+  //     .post("/upload", formData, {
+  //       headers: {
+  //         "Content-Type": "multipart/form-data",
+  //       },
+  //     })
+  //     .then((res) => {
+  //       // After upload, add the new image to the list
+  //       setImages((prev) => [...prev, res.data.image]);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  const handleUpload = (formData: FormData) => {
+  api
+    .post("/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
+    .then((res) => {
+      // After upload, add the new image to the list
+      setImages((prev) => [...prev, res.data.image]);
+    })
+    .catch((err) => console.log(err));
+};
+
 
   const onCloseAddAchivement = () => {
     setIsAddAchivementModal(false);

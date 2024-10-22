@@ -93,6 +93,16 @@ export function formatTime(timeString: moment.MomentInput) {
   return moment(timeString).format("h:mm:ss a");
 }
 
+// export const formatNameForURL = (name: string): string => {
+//   return name
+//     .toLowerCase()
+//     .replace(/[^a-z0-9\s]/g, '') // Remove non-alphanumeric characters
+//     .trim()
+//     .replace(/\s+/g, '-') // Replace spaces with hyphens
+//     .slice(0, 50); // Optional: limit the length of the URL
+// };
+
+
 export {
   removeItemInCookie,
   clientConfig,

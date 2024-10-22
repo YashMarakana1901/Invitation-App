@@ -3,6 +3,9 @@ import { useState } from "react";
 const AddAchivementModal = ({ onClose, onUpload }: any) => {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
+  const [name, setName] = useState("");
+  const [x, setX] = useState<number | "">("");
+  const [y, setY] = useState<number | "">("");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0] || null;
@@ -19,7 +22,14 @@ const AddAchivementModal = ({ onClose, onUpload }: any) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (file) {
-      onUpload(file);
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("achievement_type", "birthday");
+      formData.append("name", name);
+      formData.append("x", x.toString());
+      formData.append("y", y.toString());
+
+      onUpload(formData);
       onClose();
     }
   };
@@ -35,6 +45,42 @@ const AddAchivementModal = ({ onClose, onUpload }: any) => {
           {/* File Input */}
           <div className="mb-4">
             <input type="file" name="file" onChange={handleFileChange} />
+          </div>
+
+          {/* Name Input */}
+          <div className="mb-4">
+            <label>Name:</label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+              className="w-full border border-gray-300 p-2 rounded"
+            />
+          </div>
+
+          {/* X Input */}
+          <div className="mb-4">
+            <label>X:</label>
+            <input
+              type="number"
+              value={x}
+              onChange={(e) => setX(Number(e.target.value))}
+              required
+              className="w-full border border-gray-300 p-2 rounded"
+            />
+          </div>
+
+          {/* Y Input */}
+          <div className="mb-4">
+            <label>Y:</label>
+            <input
+              type="number"
+              value={y}
+              onChange={(e) => setY(Number(e.target.value))}
+              required
+              className="w-full border border-gray-300 p-2 rounded"
+            />
           </div>
 
           {/* Image Preview */}
